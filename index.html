@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Share - WebRTC File Sharing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☕ Coffee Share</h1>
+            <p>Share files instantly using WebRTC - No servers, direct peer-to-peer transfer</p>
+        </header>
+
+        <main>
+            <div class="connection-section">
+                <h2>Connection</h2>
+                <div class="role-selection">
+                    <button id="createOffer" class="btn btn-primary">Create Offer (Sender)</button>
+                    <button id="createAnswer" class="btn btn-secondary">Join Session (Receiver)</button>
+                </div>
+
+                <div id="offerSection" class="hidden">
+                    <h3>Step 1: Share this offer with the receiver</h3>
+                    <textarea id="offerText" readonly placeholder="Offer will appear here..."></textarea>
+                    <button id="copyOffer" class="btn btn-small">Copy Offer</button>
+                    
+                    <h3>Step 2: Paste the answer from receiver</h3>
+                    <textarea id="answerInput" placeholder="Paste answer here..."></textarea>
+                    <button id="setAnswer" class="btn btn-primary">Set Answer</button>
+                </div>
+
+                <div id="answerSection" class="hidden">
+                    <h3>Step 1: Paste the offer from sender</h3>
+                    <textarea id="offerInput" placeholder="Paste offer here..."></textarea>
+                    <button id="setOffer" class="btn btn-primary">Set Offer</button>
+                    
+                    <h3>Step 2: Share this answer with the sender</h3>
+                    <textarea id="answerText" readonly placeholder="Answer will appear here..."></textarea>
+                    <button id="copyAnswer" class="btn btn-small">Copy Answer</button>
+                </div>
+
+                <div id="connectionStatus" class="status"></div>
+            </div>
+
+            <div id="fileSection" class="file-section hidden">
+                <h2>File Sharing</h2>
+                
+                <div class="file-input-area">
+                    <input type="file" id="fileInput" multiple>
+                    <button id="sendFile" class="btn btn-primary" disabled>Send Selected Files</button>
+                </div>
+
+                <div id="fileProgress" class="progress-area hidden">
+                    <h3>Transfer Progress</h3>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <span id="progressText">0%</span>
+                </div>
+
+                <div id="receivedFiles" class="received-files">
+                    <h3>Received Files</h3>
+                    <div id="fileList"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

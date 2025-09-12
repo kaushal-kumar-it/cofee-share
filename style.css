@@ -1,0 +1,266 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #8B4513, #D2691E, #CD853F);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #8B4513;
+    padding-bottom: 20px;
+}
+
+header h1 {
+    color: #8B4513;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.connection-section, .file-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 2px solid #D2691E;
+    border-radius: 10px;
+    background: rgba(210, 105, 30, 0.05);
+}
+
+.connection-section h2, .file-section h2 {
+    color: #8B4513;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.role-selection {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #8B4513;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #A0522D;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #D2691E;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #FF8C00;
+    transform: translateY(-2px);
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.9em;
+    background: #CD853F;
+    color: white;
+}
+
+.btn-small:hover {
+    background: #DEB887;
+}
+
+.btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 2px solid #D2691E;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.9em;
+    margin: 10px 0;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #8B4513;
+    box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+}
+
+.hidden {
+    display: none;
+}
+
+.status {
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.status.connecting {
+    background: #FFF3CD;
+    color: #856404;
+    border: 1px solid #FFEAA7;
+}
+
+.status.connected {
+    background: #D4EDDA;
+    color: #155724;
+    border: 1px solid #C3E6CB;
+}
+
+.status.error {
+    background: #F8D7DA;
+    color: #721C24;
+    border: 1px solid #F5C6CB;
+}
+
+.file-input-area {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 2px dashed #D2691E;
+    border-radius: 10px;
+    text-align: center;
+    background: rgba(210, 105, 30, 0.05);
+}
+
+#fileInput {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #D2691E;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.progress-area {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(139, 69, 19, 0.05);
+    border-radius: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8B4513, #D2691E);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+#progressText {
+    font-weight: bold;
+    color: #8B4513;
+}
+
+.received-files {
+    margin-top: 20px;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    background: rgba(139, 69, 19, 0.05);
+    border-radius: 8px;
+    border: 1px solid #D2691E;
+}
+
+.file-info {
+    flex-grow: 1;
+}
+
+.file-name {
+    font-weight: bold;
+    color: #8B4513;
+    margin-bottom: 5px;
+}
+
+.file-size {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.download-btn {
+    background: #8B4513;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.download-btn:hover {
+    background: #A0522D;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .role-selection {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+}

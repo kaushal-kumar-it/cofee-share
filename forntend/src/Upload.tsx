@@ -69,18 +69,15 @@ const Upload = () => {
         ws.current = new WebSocket(SERVER_URL);
 
         ws.current.onopen = () => {
-            console.log('WebSocket connected');
             addMessage('Connected to Brew Beautiful Share', 'system');
         };
 
         ws.current.onmessage = async (event) => {
             const message = JSON.parse(event.data);
-            console.log('Received message:', message);
             await handleWebSocketMessage(message);
         };
 
         ws.current.onclose = () => {
-            console.log('WebSocket disconnected');
             addMessage('Disconnected from service', 'system');
             setConnectionState('disconnected');
         };
@@ -112,7 +109,7 @@ const Upload = () => {
                 setRoomSize(msgRoomSize);
                 addMessage(`User joined as ${msgRole}`, 'system');
                 if (role === 'sender' && msgRoomSize === 2) {
-                    console.log('Second user joined, ready to create offer...');
+                    // Second user joined, ready to create offer
                 }
                 break;
 
@@ -138,13 +135,11 @@ const Upload = () => {
                 break;
 
             default:
-                console.warn('Unknown message type:', type);
+                // Unknown message type
         }
     };
 
     const initializePeerConnection = async (userRole) => {
-        console.log('Initializing peer connection for role:', userRole);
-        
         if (peerConnection.current) {
             peerConnection.current.close();
         }
@@ -152,7 +147,6 @@ const Upload = () => {
         peerConnection.current = new RTCPeerConnection(rtcConfig);
 
         peerConnection.current.onicecandidate = (event) => {
-            console.log('ICE candidate generated:', event.candidate);
             if (event.candidate) {
                 sendSignal({
                     type: 'ice-candidate',
@@ -163,7 +157,6 @@ const Upload = () => {
 
         peerConnection.current.onconnectionstatechange = () => {
             const state = peerConnection.current.connectionState;
-            console.log('Connection state changed to:', state);
             setConnectionState(state);
             addMessage(`Connection state: ${state}`, 'system');
             
@@ -176,12 +169,10 @@ const Upload = () => {
         };
 
         peerConnection.current.ondatachannel = (event) => {
-            console.log('Data channel received:', event.channel);
             setupDataChannel(event.channel);
         };
 
         if (userRole === 'sender') {
-            console.log('Creating data channel for sender');
             const channel = peerConnection.current.createDataChannel('fileChannel', {
                 ordered: true,  // Use ordered delivery for reliability
                 maxRetransmits: 3  // Allow some retransmissions for reliability
@@ -191,11 +182,9 @@ const Upload = () => {
     };
 
     const setupDataChannel = (channel) => {
-        console.log('Setting up data channel:', channel.label);
         dataChannel.current = channel;
 
         channel.onopen = () => {
-            console.log('Data channel opened');
             addMessage('Data channel opened - ready for file transfer!', 'success');
         };
 
@@ -204,7 +193,6 @@ const Upload = () => {
         };
 
         channel.onclose = () => {
-            console.log('Data channel closed');
             addMessage('Data channel closed', 'system');
             cleanupTransfer();
         };
@@ -223,7 +211,7 @@ const Upload = () => {
 
         if (channel.addEventListener) {
             channel.addEventListener('bufferedamountlow', () => {
-                console.log('Buffer amount low - ready for more data');
+                // Buffer amount low - ready for more data
             });
         }
     };
@@ -240,7 +228,6 @@ const Upload = () => {
                 transferStartTime.current = Date.now();
                 
                 addMessage(`Receiving file: ${fileMeta.current.name} (${formatFileSize(fileMeta.current.size)})`, 'info');
-                console.log('Starting enhanced file reception:', fileMeta.current);
                 
             } else if (data === 'EOF') {
                 try {
@@ -258,7 +245,6 @@ const Upload = () => {
                     
                     setReceivedFiles(prev => [...prev, file]);
                     addMessage(`File received successfully: ${fileMeta.current.name}`, 'success');
-                    console.log('File transfer completed successfully!');
                     
                     receivedBuffers.current = [];
                     receivedBytes.current = 0;
@@ -412,7 +398,6 @@ const Upload = () => {
         }
         
         try {
-            console.log('Creating offer...');
             const offer = await peerConnection.current.createOffer();
             await peerConnection.current.setLocalDescription(offer);
             sendSignal(offer);
@@ -553,8 +538,6 @@ const Upload = () => {
         currentRetries.current = 0;
         sendOffset.current = 0;
         receivedBytes.current = 0;
-        
-        console.log('Transfer cleanup completed');
     };
 
     const addMessage = (text, type = 'info') => {

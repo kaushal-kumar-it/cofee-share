@@ -67,7 +67,6 @@ app.post('/create-room', (req, res) => {
             lastActivity: Date.now()
         });
         
-        console.log(`Room created: ${roomId}`);
         res.json({ 
             success: true,
             roomId: roomId,
@@ -175,8 +174,6 @@ wss.on('connection', (ws, req) => {
         clientId: clientId,
         timestamp: Date.now()
     }));
-    
-    console.log(`Client connected: ${clientId} (Total: ${clients.size})`);
 
     // Handle incoming messages
     ws.on('message', (message) => {
@@ -194,7 +191,6 @@ wss.on('connection', (ws, req) => {
 
     // Handle connection close
     ws.on('close', (code, reason) => {
-        console.log(`Client disconnected: ${clientId} (Code: ${code}, Reason: ${reason})`);
         handleClientDisconnect(clientId);
     });
 
@@ -295,8 +291,6 @@ function handleJoinRoom(clientId, roomId) {
             roomSize: room.members.size 
         }, clientId);
         
-        console.log(`Client ${clientId} joined room ${roomId} as ${userRole} (${room.members.size}/2)`);
-        
     } else {
         client.ws.send(JSON.stringify({ 
             type: 'error', 
@@ -324,8 +318,6 @@ function handleSignaling(fromClientId, targetId, data) {
         clientId: fromClientId, 
         data: data 
     }));
-    
-    console.log(`Signal relayed from ${fromClientId} to ${targetId}: ${data.type}`);
 }
 
 // Handle room leaving
@@ -349,10 +341,8 @@ function handleLeaveRoom(clientId, roomId) {
         // Clean up empty room
         if (room.members.size === 0) {
             rooms.delete(roomId);
-            console.log(`Room ${roomId} deleted (empty)`);
         }
         
-        console.log(`Client ${clientId} left room ${roomId}`);
     }
     
     // Update client info
@@ -368,7 +358,6 @@ function handleClientDisconnect(clientId) {
     }
     
     clients.delete(clientId);
-    console.log(`Client ${clientId} fully disconnected (Remaining: ${clients.size})`);
 }
 
 // Broadcast message to all room members except sender
@@ -391,15 +380,12 @@ function broadcastToRoom(roomId, message, excludeClientId) {
             }
         }
     });
-    
-    console.log(`Broadcast to room ${roomId}: ${sentCount} recipients`);
 }
 
 // Heartbeat mechanism to detect broken connections
 const heartbeatInterval = setInterval(() => {
     wss.clients.forEach((ws) => {
         if (!ws.isAlive) {
-            console.log('Terminating dead connection');
             return ws.terminate();
         }
         
@@ -416,7 +402,6 @@ const cleanupInterval = setInterval(() => {
     rooms.forEach((room, roomId) => {
         if (room.members.size === 0 && (now - room.lastActivity) > maxIdleTime) {
             rooms.delete(roomId);
-            console.log(`Cleaned up idle room: ${roomId}`);
         }
     });
 }, 5 * 60 * 1000); // Every 5 minutes

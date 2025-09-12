@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Coffee-themed design system with warm, inviting colors */
+
+@layer base {
+  :root {
+    /* Coffee-inspired color palette */
+    --background: 35 20% 97%;
+    --foreground: 20 20% 15%;
+
+    --card: 35 15% 95%;
+    --card-foreground: 20 20% 15%;
+
+    --popover: 35 15% 95%;
+    --popover-foreground: 20 20% 15%;
+
+    /* Rich coffee brown as primary */
+    --primary: 25 60% 35%;
+    --primary-foreground: 35 20% 97%;
+
+    /* Warm cream as secondary */
+    --secondary: 35 30% 88%;
+    --secondary-foreground: 20 20% 15%;
+
+    /* Muted coffee tones */
+    --muted: 30 15% 85%;
+    --muted-foreground: 25 10% 45%;
+
+    /* Golden coffee accent */
+    --accent: 40 85% 65%;
+    --accent-foreground: 20 20% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 35 20% 97%;
+
+    --border: 30 20% 82%;
+    --input: 30 20% 90%;
+    --ring: 25 60% 35%;
+
+    /* Coffee shop inspired gradients */
+    --gradient-coffee: linear-gradient(135deg, hsl(25 60% 35%), hsl(30 55% 45%));
+    --gradient-cream: linear-gradient(180deg, hsl(35 30% 88%), hsl(35 25% 85%));
+    --gradient-hero: linear-gradient(135deg, hsl(25 60% 35%) 0%, hsl(30 55% 45%) 50%, hsl(40 85% 65%) 100%);
+    
+    /* Elegant shadows */
+    --shadow-coffee: 0 10px 30px -10px hsl(25 60% 35% / 0.3);
+    --shadow-warm: 0 4px 20px hsl(25 30% 20% / 0.1);
+    
+    /* Smooth transitions */
+    --transition-coffee: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark coffee theme - rich and sophisticated */
+    --background: 20 25% 8%;
+    --foreground: 35 20% 92%;
+
+    --card: 20 20% 12%;
+    --card-foreground: 35 20% 92%;
+
+    --popover: 20 20% 12%;
+    --popover-foreground: 35 20% 92%;
+
+    /* Lighter coffee brown for dark mode */
+    --primary: 40 85% 65%;
+    --primary-foreground: 20 25% 8%;
+
+    --secondary: 25 15% 18%;
+    --secondary-foreground: 35 20% 92%;
+
+    --muted: 20 10% 15%;
+    --muted-foreground: 30 8% 55%;
+
+    --accent: 40 85% 65%;
+    --accent-foreground: 20 25% 8%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 35 20% 92%;
+
+    --border: 25 15% 18%;
+    --input: 25 15% 18%;
+    --ring: 40 85% 65%;
+    
+    /* Dark mode gradients */
+    --gradient-coffee: linear-gradient(135deg, hsl(20 25% 8%), hsl(25 20% 15%));
+    --gradient-cream: linear-gradient(180deg, hsl(25 15% 18%), hsl(20 10% 15%));
+    --gradient-hero: linear-gradient(135deg, hsl(20 25% 8%) 0%, hsl(25 20% 15%) 50%, hsl(40 85% 65%) 100%);
+    
+    --shadow-coffee: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
+    --shadow-warm: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Share - Demo Instructions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8B4513, #D2691E, #CD853F);
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        h1 { color: #8B4513; text-align: center; }
+        .demo-link {
+            display: block;
+            text-align: center;
+            margin: 30px 0;
+            padding: 15px;
+            background: #8B4513;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .demo-link:hover {
+            background: #A0522D;
+        }
+        .step {
+            background: rgba(139, 69, 19, 0.05);
+            border-left: 4px solid #8B4513;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .step h3 {
+            color: #8B4513;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>☕ Coffee Share - Demo Instructions</h1>
+        
+        <a href="index.html" class="demo-link" target="_blank">🚀 Open Coffee Share Application</a>
+        
+        <div class="step">
+            <h3>🎯 How to Test File Sharing</h3>
+            <p>Since WebRTC requires two separate peers, you'll need to:</p>
+            <ol>
+                <li><strong>Open two browser tabs/windows</strong> with the application</li>
+                <li><strong>Tab 1 (Sender):</strong> Click "Create Offer (Sender)"</li>
+                <li><strong>Copy the offer</strong> from Tab 1</li>
+                <li><strong>Tab 2 (Receiver):</strong> Click "Join Session (Receiver)"</li>
+                <li><strong>Paste the offer</strong> in Tab 2 and click "Set Offer"</li>
+                <li><strong>Copy the answer</strong> from Tab 2</li>
+                <li><strong>Paste the answer</strong> in Tab 1 and click "Set Answer"</li>
+                <li><strong>Wait for connection</strong> - you'll see "Connected!" message</li>
+                <li><strong>Select files</strong> in Tab 1 and click "Send Selected Files"</li>
+                <li><strong>Download files</strong> in Tab 2 when they appear</li>
+            </ol>
+        </div>
+        
+        <div class="step">
+            <h3>✨ Features Demonstrated</h3>
+            <ul>
+                <li>🔐 <strong>Secure WebRTC Connection</strong> - DTLS encrypted</li>
+                <li>📁 <strong>File Transfer</strong> - Any file type, any size</li>
+                <li>📊 <strong>Progress Tracking</strong> - Real-time transfer progress</li>
+                <li>📋 <strong>Easy Signaling</strong> - Copy/paste offer and answer</li>
+                <li>💾 <strong>Automatic Download</strong> - Files ready to download on receiver</li>
+                <li>📱 <strong>Responsive Design</strong> - Works on mobile and desktop</li>
+            </ul>
+        </div>
+        
+        <div class="step">
+            <h3>🛠 Technical Highlights</h3>
+            <ul>
+                <li><strong>Pure JavaScript</strong> - No frameworks or dependencies</li>
+                <li><strong>WebRTC Data Channels</strong> - Direct peer-to-peer transfer</li>
+                <li><strong>File Chunking</strong> - 16KB chunks for reliable large file transfer</li>
+                <li><strong>Error Handling</strong> - Comprehensive validation and user feedback</li>
+                <li><strong>Cross-Browser</strong> - Works in Chrome, Firefox, Safari, Edge</li>
+            </ul>
+        </div>
+        
+        <div class="step">
+            <h3>🌟 Use Cases</h3>
+            <ul>
+                <li><strong>Private File Sharing</strong> - No servers, direct transfer</li>
+                <li><strong>Large File Transfer</strong> - No upload/download limits</li>
+                <li><strong>Quick Sharing</strong> - Instant setup, no accounts needed</li>
+                <li><strong>Secure Transfer</strong> - End-to-end encrypted</li>
+                <li><strong>Local Network</strong> - Fast transfers within same network</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

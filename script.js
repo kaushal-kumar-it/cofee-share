@@ -109,7 +109,18 @@ class CoffeeShare {
 
     async setRemoteOffer() {
         try {
-            const offer = JSON.parse(this.offerInput.value.trim());
+            const offerText = this.offerInput.value.trim();
+            if (!offerText) {
+                this.updateStatus('Please paste an offer first.', 'error');
+                return;
+            }
+            
+            const offer = JSON.parse(offerText);
+            if (!offer.sdp || offer.type !== 'offer') {
+                this.updateStatus('Invalid offer format.', 'error');
+                return;
+            }
+            
             await this.peerConnection.setRemoteDescription(offer);
             
             const answer = await this.peerConnection.createAnswer();
@@ -119,18 +130,29 @@ class CoffeeShare {
             this.updateStatus('Answer created. Share it with the sender.', 'connecting');
         } catch (error) {
             console.error('Error setting offer:', error);
-            this.updateStatus('Error processing offer: ' + error.message, 'error');
+            this.updateStatus('Error processing offer: Invalid format or connection issue.', 'error');
         }
     }
 
     async setRemoteAnswer() {
         try {
-            const answer = JSON.parse(this.answerInput.value.trim());
+            const answerText = this.answerInput.value.trim();
+            if (!answerText) {
+                this.updateStatus('Please paste an answer first.', 'error');
+                return;
+            }
+            
+            const answer = JSON.parse(answerText);
+            if (!answer.sdp || answer.type !== 'answer') {
+                this.updateStatus('Invalid answer format.', 'error');
+                return;
+            }
+            
             await this.peerConnection.setRemoteDescription(answer);
             this.updateStatus('Connecting...', 'connecting');
         } catch (error) {
             console.error('Error setting answer:', error);
-            this.updateStatus('Error processing answer: ' + error.message, 'error');
+            this.updateStatus('Error processing answer: Invalid format or connection issue.', 'error');
         }
     }
 
@@ -331,6 +353,7 @@ class CoffeeShare {
         try {
             await navigator.clipboard.writeText(text);
             console.log('Copied to clipboard');
+            this.showTempMessage('Copied to clipboard! ✅');
         } catch (err) {
             console.error('Failed to copy to clipboard:', err);
             // Fallback for older browsers
@@ -340,7 +363,22 @@ class CoffeeShare {
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
+            this.showTempMessage('Copied to clipboard! ✅');
         }
+    }
+
+    showTempMessage(message) {
+        const statusEl = this.connectionStatus;
+        const originalMessage = statusEl.textContent;
+        const originalClass = statusEl.className;
+        
+        statusEl.textContent = message;
+        statusEl.className = 'status connected';
+        
+        setTimeout(() => {
+            statusEl.textContent = originalMessage;
+            statusEl.className = originalClass;
+        }, 2000);
     }
 
     updateConnectionStatus() {

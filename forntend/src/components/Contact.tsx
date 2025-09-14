@@ -105,7 +105,7 @@ export const Contact = () => {
               ) : (
                 <>
                   <Copy className="w-4 h-4" />
-                  techs308@gmail.com
+                  kaushal902310@gmail.com
                 </>
               )}
             </Button>

@@ -44,9 +44,13 @@ const Upload = () => {
     const activeTransfer = useRef(false);
 
     // WebRTC configuration
-   const rtcConfig = {
+const rtcConfig = {
     iceServers: [
-        // Your STUN server
+        // Google STUN servers
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' },
+
+        // Your own STUN server
         { urls: 'stun:server.cofeeshare.app:3478' },
 
         // TURN server for UDP

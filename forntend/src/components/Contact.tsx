@@ -11,7 +11,7 @@ export const Contact = () => {
 
   const copyEmailToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText('techs308@gmail.com');
+      await navigator.clipboard.writeText('ramanshumishra256@gmail.com');
       setEmailCopied(true);
       setTimeout(() => setEmailCopied(false), 2000); // Reset after 2 seconds
     } catch (err) {
@@ -105,7 +105,7 @@ export const Contact = () => {
               ) : (
                 <>
                   <Copy className="w-4 h-4" />
-                  kaushal902310@gmail.com
+                  ramanshumishra256@gmail.com
                 </>
               )}
             </Button>

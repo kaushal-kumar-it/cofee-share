@@ -18,7 +18,7 @@ export const Contact = () => {
       console.error('Failed to copy email: ', err);
       // Fallback for older browsers
       const textArea = document.createElement('textarea');
-      textArea.value = 'kaushal902310@gmail.com';
+      textArea.value = 'ramanshumishra256@gmail.com';
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand('copy');

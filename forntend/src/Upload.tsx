@@ -45,29 +45,24 @@ const Upload = () => {
 
     // WebRTC configuration
 const rtcConfig = {
-    iceServers: [
-        // Google STUN servers
-        { urls: 'stun:stun.l.google.com:19302' },
-        { urls: 'stun:stun1.l.google.com:19302' },
+  iceServers: [
+    // Google STUN
+    { urls: "stun:stun.l.google.com:19302" },
 
-        // Your own STUN server
-        { urls: 'stun:server.cofeeshare.app:3478' },
-
-        // TURN server for UDP
-        {
-            urls: 'turn:server.cofeeshare.app:3478?transport=udp',
-            username: 'guest',
-            credential: 'somepassword'
-        },
-
-        // TURN server for TCP/TLS
-        {
-            urls: 'turn:server.cofeeshare.app:5349?transport=tcp',
-            username: 'guest',
-            credential: 'somepassword'
-        }
-    ]
+    // Free public TURN (Metered OpenRelay)
+    {
+      urls: [
+        "turn:global.turn.metered.ca:80",
+        "turn:global.turn.metered.ca:80?transport=tcp",
+        "turn:global.turn.metered.ca:443",
+        "turns:global.turn.metered.ca:443?transport=tcp"
+      ],
+      username: "openrelayproject",
+      credential: "openrelayproject"
+    }
+  ]
 };
+
 
 
     // Initialize WebSocket connection

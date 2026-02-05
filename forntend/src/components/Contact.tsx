@@ -11,14 +11,14 @@ export const Contact = () => {
 
   const copyEmailToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText('ramanshumishra256@gmail.com');
+      await navigator.clipboard.writeText('kaushalk7564@gmail.com');
       setEmailCopied(true);
       setTimeout(() => setEmailCopied(false), 2000); // Reset after 2 seconds
     } catch (err) {
       console.error('Failed to copy email: ', err);
       // Fallback for older browsers
       const textArea = document.createElement('textarea');
-      textArea.value = 'ramanshumishra256@gmail.com';
+      textArea.value = 'kaushalk7564@gmail.com';
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand('copy');
@@ -105,7 +105,7 @@ export const Contact = () => {
               ) : (
                 <>
                   <Copy className="w-4 h-4" />
-                  ramanshumishra256@gmail.com
+                  kaushalk7564@gmail.com
                 </>
               )}
             </Button>

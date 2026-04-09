@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Header } from '@/components/Header';
+import QRCode from 'qrcode';
 
 const SERVER_URL = import.meta.env.VITE_WS_SERVER_URL || 'ws://localhost:8000';
 const API_URL = import.meta.env.VITE_API_SERVER_URL || 'http://localhost:8000';
@@ -177,6 +178,9 @@ const UploadReliable = () => {
   const [transferSpeed, setTransferSpeed] = useState(0);
   const [dataChannelReady, setDataChannelReady] = useState(false);
   const [hasPeer, setHasPeer] = useState(false);
+  const [pendingRoomId, setPendingRoomId] = useState<string | null>(null);
+  const [joinLink, setJoinLink] = useState('');
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState('');
 
   const ws = useRef<WebSocket | null>(null);
   const peerConnection = useRef<RTCPeerConnection | null>(null);
@@ -723,6 +727,17 @@ const UploadReliable = () => {
     }
   };
 
+  const copyJoinLink = async () => {
+    if (!joinLink) return;
+
+    try {
+      await navigator.clipboard.writeText(joinLink);
+      addMessage('Join link copied to clipboard', 'success');
+    } catch {
+      addMessage('Could not copy join link', 'error');
+    }
+  };
+
   const leaveRoom = () => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(
@@ -843,6 +858,14 @@ const UploadReliable = () => {
   };
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const roomFromUrl = params.get('room')?.trim();
+
+    if (roomFromUrl) {
+      setInputRoomId(roomFromUrl);
+      setPendingRoomId(roomFromUrl);
+    }
+
     connectWebSocket();
 
     return () => {
@@ -861,6 +884,53 @@ const UploadReliable = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!roomId) {
+      setJoinLink('');
+      return;
+    }
+
+    setJoinLink(`${window.location.origin}/upload?room=${encodeURIComponent(roomId)}`);
+  }, [roomId]);
+
+  useEffect(() => {
+    if (!joinLink) {
+      setQrCodeDataUrl('');
+      return;
+    }
+
+    let isCancelled = false;
+
+    QRCode.toDataURL(joinLink, {
+      width: 220,
+      margin: 1,
+      errorCorrectionLevel: 'M'
+    })
+      .then((dataUrl) => {
+        if (!isCancelled) {
+          setQrCodeDataUrl(dataUrl);
+        }
+      })
+      .catch(() => {
+        if (!isCancelled) {
+          setQrCodeDataUrl('');
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [joinLink]);
+
+  useEffect(() => {
+    if (!isWsReady || !pendingRoomId || isConnected) {
+      return;
+    }
+
+    joinRoom(pendingRoomId);
+    setPendingRoomId(null);
+  }, [isWsReady, pendingRoomId, isConnected]);
 
   const canTransfer = hasPeer && (dataChannelReady || isWsReady);
   const transportLabel = dataChannelReady
@@ -958,6 +1028,34 @@ const UploadReliable = () => {
                     </button>
                   </div>
                 </div>
+
+                {joinLink && (
+                  <div className="mt-4 border border-border rounded-lg p-4">
+                    <div className="text-sm font-medium mb-3">Invite with QR</div>
+                    <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+                      {qrCodeDataUrl && (
+                        <img
+                          src={qrCodeDataUrl}
+                          alt="Room join QR code"
+                          className="w-36 h-36 rounded-md border border-border bg-white p-1"
+                        />
+                      )}
+                      <div className="flex-1 w-full">
+                        <input
+                          value={joinLink}
+                          readOnly
+                          className="w-full px-3 py-2 border border-border rounded-lg bg-background text-sm"
+                        />
+                        <button
+                          onClick={copyJoinLink}
+                          className="mt-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition text-sm font-medium"
+                        >
+                          Copy Invite Link
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {canTransfer && (

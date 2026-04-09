@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import { Analytics } from "@vercel/analytics/react"
-import Upload from "./Upload";
+import Upload from "./UploadReliable";
 import NotFound from "./pages/NotFound";
 //import Upload from "./pages/Uplaod1";
 
